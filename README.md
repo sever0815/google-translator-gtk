@@ -41,7 +41,7 @@ A compact floating quick-translate window:
 sudo pacman -S --needed base-devel clang cargo
 
 # Clone and build
-git clone https://github.com/sever0815/google-translator-gtk.git
+git clone https://codeberg.org/sever0815/google-translator-gtk.git
 cd google-translator-gtk
 makepkg -si
 ```
