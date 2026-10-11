@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Translator
+Comment=A small GTK4 translator powered by Google Translate
+Exec=translator-gtk
+Icon=Google_Translate_logo
+Terminal=false
+Type=Application
+Categories=Utility;TextTools;
+StartupNotify=true
