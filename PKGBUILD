@@ -7,14 +7,18 @@ arch=('x86_64' 'aarch64')
 url="https://github.com/sever0815/google-translator-gtk"
 license=('MIT')
 depends=('gtk4>=4.12')
-makedepends=('cargo')
+makedepends=('cargo' 'clang') # Ключевое изменение: clang обязателен
+
 source=("$pkgname-$pkgver.tar.gz::https://github.com/sever0815/google-translator-gtk/archive/refs/tags/v$pkgver.tar.gz")
 sha256sums=('SKIP')
 
 build() {
-    # Переходим в директорию, используя wildcard (звездочку),
-    # чтобы не зависеть от точного имени папки внутри архива
     cd "google-translator-gtk-$pkgver"
+
+    # Направляем cargo использовать clang, который корректно соберет ring
+    export CC=clang
+    export CXX=clang++
+
     cargo build --release --locked
 }
 
