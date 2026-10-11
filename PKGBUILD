@@ -7,27 +7,23 @@ arch=('x86_64' 'aarch64')
 url="https://github.com/sever0815/google-translator-gtk"
 license=('MIT')
 depends=('gtk4>=4.12')
-makedepends=('cargo' 'gcc' 'clang')
+makedepends=('cargo')
 optdepends=(
     'tesseract: OCR image translation'
     'tesseract-data-eng: English OCR language data'
     'tesseract-data-rus: Russian OCR language data'
     'wl-clipboard: clipboard support on Wayland'
 )
-source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('SKIP')
+source=()
+sha256sums=()
 
 build() {
-    cd "$pkgname-$pkgver"
-    export CC="clang"
-    export CXX="clang++"
-    export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER="clang"
-    export RUSTFLAGS="-C link-arg=-fuse-ld=lld"
+    cd "$srcdir"
     cargo build --release --locked
 }
 
 package() {
-    cd "$pkgname-$pkgver"
+    cd "$srcdir"
 
     install -Dm755 "target/release/$pkgname" "$pkgdir/usr/bin/$pkgname"
     install -Dm644 "$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
