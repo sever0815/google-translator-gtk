@@ -7,7 +7,7 @@ arch=('x86_64' 'aarch64')
 url="https://github.com/sever0815/google-translator-gtk"
 license=('MIT')
 depends=('gtk4>=4.12')
-makedepends=('cargo')
+makedepends=('cargo' 'gcc' 'clang')
 optdepends=(
     'tesseract: OCR image translation'
     'tesseract-data-eng: English OCR language data'
@@ -19,6 +19,10 @@ sha256sums=('SKIP')
 
 build() {
     cd "$pkgname-$pkgver"
+    export CC="clang"
+    export CXX="clang++"
+    export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER="clang"
+    export RUSTFLAGS="-C link-arg=-fuse-ld=lld"
     cargo build --release --locked
 }
 
